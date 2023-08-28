@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const checkListRouter = require('./src/routes/checklist')
+const taskRouter = require('./src/routes/task')
 const rootRouter = require('./src/routes/index')
 const methodOverride = require('method-override')
 
@@ -14,6 +15,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(methodOverride('_method', {methods:['POST','GET']}))
 
 app.use('/checklists', checkListRouter)
+app.use('/checklists', taskRouter.checklistDependent)
+app.use('/tasks',taskRouter.simple)
 app.use('/', rootRouter)
 
 
